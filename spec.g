@@ -102,7 +102,7 @@ constraintsdecl
 	
 // This will be the main rule used to read the specification input
 specobjects
-	:	specobject*
+	:	specobject (NEWLINE* specobject)*
 	;
 
 specobject
