@@ -44,6 +44,23 @@ OPERATOR:
 	|	'.'
 	;
 
+// Basic geometric shapes that can be used
+SHAPE	:	'rectangle'
+	|	'triangle'
+	|	'ellipse'
+	|	'polygon'
+	|	'text'
+	|	'textrect'
+	|	'polyline'
+	;
+// User defined properties for the spec object
+PROPERTY:	'x'
+	|	'y'
+	|	'width'
+	|	'height'
+	;
+	
+	
 // Definition for integer
 INT	:	('1'..'9')+
 	;
@@ -65,21 +82,40 @@ NEWLINE	:	'\n'
 ////////////////////////////////////////////////
 // Rules Definitions
 ////////////////////////////////////////////////
+
+// This will be the main rule used to read the specification input
 specobjects
 	:	specobject*
 	;
 
 specobject
-	:	'specobject'
+	:	ID WS '=' WS '{'
+		NEWLINE
+			variables
+			NEWLINE
+			properties
+			NEWLINE
+			constraints
+			NEWLINE
+		'}'
 	;
-
 
 variables
-	:	'variables'
+	:	TAB 'variables' WS '{'
+		NEWLINE
+		NEWLINE
+		TAB '}'
 	;
 properties
-	:	'properties'
+	:	TAB 'properties' WS '{'
+		NEWLINE
+		NEWLINE
+		TAB '}'
 	;
 constraints
-	:	'constraints';
+	:	TAB 'constraints' WS '{'
+		NEWLINE
+		NEWLINE
+		TAB '}'
+	;
 
