@@ -54,10 +54,10 @@ SHAPE	:	'rectangle'
 	|	'polyline'
 	;
 // User defined properties for the spec object
-PROPERTY:	'x'
-	|	'y'
-	|	'width'
-	|	'height'
+PROPERTY:	'X'
+	|	'Y'
+	|	'WIDTH'
+	|	'HEIGHT'
 	;
 	
 	
@@ -66,7 +66,7 @@ INT	:	('1'..'9')+
 	;
 
 // Definition for variable ID, this can be used as the ID of the defined object or the other instantiated objects
-ID	:	('a'..'z'|'\_') ('a'..'z'|'0'..'9'|'\_')+
+ID	:	('a'..'z'|'\_') ('a'..'z'|'0'..'9'|'\_')*
 	;
 	
 // Definition for whitespace
@@ -83,6 +83,16 @@ NEWLINE	:	'\n'
 // Rules Definitions
 ////////////////////////////////////////////////
 
+// Used to access member variable
+membervariableaccess
+	:	ID '.' ID
+	;
+
+// This is used when setting the property, ex: width = l1.x2 - l1.x1
+expression
+	:	membervariableaccess ( ('+'|'-'|'*'|'/') membervariableaccess)*
+	;
+	
 // This will be the main rule used to read the specification input
 specobjects
 	:	specobject*
@@ -102,14 +112,17 @@ specobject
 
 variables
 	:	TAB 'variables' WS '{'
-		NEWLINE
-		NEWLINE
+			NEWLINE
+			TAB TAB SHAPE WS ID (',' WS ID)*';' (NEWLINE TAB TAB SHAPE WS ID (',' WS ID)*';')*
+			NEWLINE
 		TAB '}'
 	;
 properties
 	:	TAB 'properties' WS '{'
-		NEWLINE
-		NEWLINE
+			NEWLINE
+			(TAB TAB PROPERTY WS '=' WS expression ';'
+			NEWLINE)*
+
 		TAB '}'
 	;
 constraints
