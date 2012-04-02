@@ -40,7 +40,7 @@ OPERATOR:
 	|	'/' 
 	
 	// other
-	|	'='
+	|	'=='
 	|	'.'
 	;
 
@@ -87,10 +87,17 @@ NEWLINE	:	'\n'
 membervariableaccess
 	:	ID '.' ID
 	;
-
-// This is used when setting the property, ex: width = l1.x2 - l1.x1
+// Used when setting the property, ex: width = l1.x2 - l1.x1
 expression
-	:	membervariableaccess ( ('+'|'-'|'*'|'/') membervariableaccess)*
+	:	membervariableaccess ( OPERATOR membervariableaccess)*
+	;
+// Used for declaring constraints recursively
+constraintsdecl
+	:	'(' constraintsdecl WS OPERATOR WS constraintsdecl ')'
+	|	membervariableaccess
+	|	ID
+	|	INT
+	|	'\"' (ID|INT) '\"'
 	;
 	
 // This will be the main rule used to read the specification input
@@ -127,8 +134,9 @@ properties
 	;
 constraints
 	:	TAB 'constraints' WS '{'
-		NEWLINE
-		NEWLINE
+			NEWLINE
+			TAB TAB constraintsdecl ';'
+			NEWLINE
 		TAB '}'
 	;
 
