@@ -1,6 +1,7 @@
 object1 = {
 	variables {
 		rectangle r1, r2, r3;
+		line r2, r4;
 		triangle tr2, tr3;
 		ellipse e1, e2, e3;
 		polygon p1, p2;
@@ -13,7 +14,7 @@ object1 = {
 		HEIGHT = r1.x;
 	}
 	constraints {
-		((r4 over r2) above r3);
+		((l1 over l2) above l3);
 	}
 }
 object2 = {
