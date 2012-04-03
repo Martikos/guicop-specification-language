@@ -1,0 +1,36 @@
+object1 = {
+	variables {
+		rectangle r1, r2, r3;
+		triangle tr2, tr3;
+		ellipse e1, e2, e3;
+		polygon p1, p2;
+		text t1;
+	}
+	properties {
+		X = r1.width-r1.height;
+		Y = r1.width-r2.height;
+		WIDTH = r1.x;
+		HEIGHT = r1.x;
+	}
+	constraints {
+		((r4 over r2) above r3);
+	}
+}
+object2 = {
+	variables {
+		rectangle r1, r2, r3;
+		triangle tr2, tr3;
+		ellipse e1, e2, e3;
+		polygon p1, p2;
+		text t1;
+	}
+	properties {
+		X = r1.width-r1.height;
+		Y = r1.width-r2.height;
+		WIDTH = r1.x;
+		HEIGHT = r1.x;
+	}
+	constraints {
+		((r4 over r2) above r3);
+	}
+}
