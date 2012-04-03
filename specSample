@@ -1,20 +1,20 @@
 object1 = {
 	variables {
 		rectangle r1, r2, r3;
-		line r2, r4;
+		line l1, l2, l3;
 		triangle tr2, tr3;
 		ellipse e1, e2, e3;
 		polygon p1, p2;
 		text t1;
 	}
 	properties {
-		X = r1.width-r1.height;
-		Y = r1.width-r2.height;
-		WIDTH = r1.x;
-		HEIGHT = r1.x;
+		X = r1.x-r2.x;
+		Y = r1.y-r2.y;
+		WIDTH = r1.width;
+		HEIGHT = r1.height;
 	}
 	constraints {
-		((l1 over l2) above l3);
+		(r1 below object2);
 	}
 }
 object2 = {
@@ -32,6 +32,6 @@ object2 = {
 		HEIGHT = r1.x;
 	}
 	constraints {
-		((r4 over r2) above r3);
+		(r1 below r2);
 	}
 }
