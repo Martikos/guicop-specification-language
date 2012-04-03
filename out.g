@@ -1,10 +1,9 @@
-grammar Output;
+grammar out;
 
 options{
 	output = AST;
 }
 
-// The geometric objects that can be read from the output file
 properties 
 	:	('rectangle'^ '('! INT ','! INT ','! INT ','! INT ')'! ';'!)
 	|	('line'^ '('! INT ','! INT ','! INT ','! INT ')'! ';'!)
@@ -20,14 +19,13 @@ properties
 	|	NEWLINE!
 	;
 	
-// Main rule to read
 listofproperties	
 	:	(properties)*;
 
-// Basic defs
-INT     :	'0'..'9'+;
+INT	:	'0'..'9'+;
 DEF 	:	QUOTE STRING QUOTE;
 STRING 	:	( '0'..'9' | 'a'..'z' | 'A'..'Z' | ' ' | ':' | '!' | '@' | '#' | '$' | '%' | '^' | '&' | '*' | '.' | '±' | '+' | '-' | '_' |'×' | '\\' | '/' | '=' | '÷')*  ;
-QUOTE   :	'"';
+QUOTE 
+	:	'"';
 
-NEWLINE :   (('\r' ?) '\n');
+NEWLINE:(('\r' ?) '\n');
