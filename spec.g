@@ -44,15 +44,6 @@ OPERATOR:
 	|	'.'
 	;
 
-// Basic geometric shapes that can be used
-shape	:	'rectangle'
-	|	'triangle'
-	|	'ellipse'
-	|	'polygon'
-	|	'text'
-	|	'textrect'
-	|	'polyline'
-	;
 // User defined properties for the spec object
 PROPERTY:	'X'
 	|	'Y'
@@ -66,7 +57,7 @@ INT	:	('1'..'9')+
 	;
 
 // Definition for variable ID, this can be used as the ID of the defined object or the other instantiated objects
-ID	:	('a'..'z'|'\_') ('a'..'z'|'0'..'9'|'\_')*
+ ID	:	('a'..'z'|'\_') ('a'..'z'|'0'..'9'|'\_')*
 	;
 	
 // Definition for whitespace
@@ -76,9 +67,11 @@ WS	:	' '
 TAB	:	'\t'
 	;
 // Definition for new line
-NEWLINE	:	'\n'
+NEWLINE :	'\n'
 	;
-	
+QUOTEDSTRING	:	'\"' (ID|WS)* '\"'
+		|	'\"' INT '\"'
+		;
 ////////////////////////////////////////////////
 // Rules Definitions
 ////////////////////////////////////////////////
@@ -89,7 +82,7 @@ membervariableaccess
 	;
 // Used to declaring variables
 variablesdecl
-	:	(NEWLINE! TAB! TAB! shape^ WS! ID (','! WS! ID)*';'!);
+	:	(NEWLINE! TAB! TAB! ID^ WS! ID (','! WS! ID)*';'!);
 // Used when setting the property, ex: width = l1.x2 - l1.x1
 expression
 	:	membervariableaccess (OPERATOR^ membervariableaccess)*
@@ -102,7 +95,8 @@ constraintsdecl
 	|	membervariableaccess
 	|	ID
 	|	INT
-	|	'\"' (ID|INT) '\"'
+	//|	'\"' (ID|INT) '\"'
+	|	QUOTEDSTRING
 	;
 	
 	
